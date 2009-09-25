@@ -4,7 +4,7 @@
 
 	<groupId>org.beardedgeeks</groupId>
 	<artifactId>maven-merge-properties-plugin</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.1.1</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Maven Merge Properties Plugin</name>
@@ -13,7 +13,7 @@
 	<url>http://code.google.com/p/beardedgeeks</url>
 
 	<prerequisites>
-		<maven>2.0.1</maven>
+		<maven>2.0.9</maven>
 	</prerequisites>
 
 	<developers>
@@ -44,9 +44,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin</connection>
-		<developerConnection>scm:svn:https://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin</developerConnection>
-		<url>http://code.google.com/p/beardedgeeks/source/browse/#svn/maven-merge-properties-plugin</url>
+		<connection>scm:svn:http://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin/tags/maven-merge-properties-plugin-0.1.1</connection>
+		<developerConnection>scm:svn:https://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin/tags/maven-merge-properties-plugin-0.1.1</developerConnection>
+		<url>http://code.google.com/p/beardedgeeks/source/browse/#svn/maven-merge-properties-plugin/tags/maven-merge-properties-plugin-0.1.1</url>
 	</scm>
 
 	<issueManagement>
@@ -70,11 +70,17 @@
 		</site>
 	</distributionManagement>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<powermock.version>1.2.5</powermock.version>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -157,21 +163,21 @@
 		<dependency>
 			<groupId>org.powermock.modules</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>1.2.5</version>
+			<version>${powermock.version}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock.api</groupId>
 			<artifactId>powermock-api-easymock</artifactId>
-			<version>1.2.5</version>
+			<version>${powermock.version}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0.6</version>
+			<version>${prerequisites.maven}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
