@@ -22,16 +22,16 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
- * Test class for {@link MergePropertiesMojo}.
+ * Test class for {@link MergeMojo}.
  * 
  * @author hleinone
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(MergePropertiesMojo.class)
-public class MergePropertiesMojoTest {
+@PrepareForTest(MergeMojo.class)
+public class MergeMojoTest {
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_propertiesFileIsDirectory() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -39,7 +39,7 @@ public class MergePropertiesMojoTest {
 		final File fileMock = createMock(File.class);
 		final File[] files = new File[] { fileMock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -54,7 +54,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_propertiesFileNotExists() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -62,7 +62,7 @@ public class MergePropertiesMojoTest {
 		final File fileMock = createMock(File.class);
 		final File[] files = new File[] { fileMock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -78,7 +78,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_propertiesFileNotFound() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -86,7 +86,7 @@ public class MergePropertiesMojoTest {
 		final File fileMock = createMock(File.class);
 		final File[] files = new File[] { fileMock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -104,7 +104,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_propertiesFileCanNotRead() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -112,7 +112,7 @@ public class MergePropertiesMojoTest {
 		final File fileMock = createMock(File.class);
 		final File[] files = new File[] { fileMock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -129,7 +129,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_propertiesFileCanNotReadOnLoad() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -137,7 +137,7 @@ public class MergePropertiesMojoTest {
 		final File fileMock = createMock(File.class);
 		final File[] files = new File[] { fileMock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -166,7 +166,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetFileIsDirectory() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -177,7 +177,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -216,8 +216,61 @@ public class MergePropertiesMojoTest {
 	}
 
 	@Test(expected = MojoExecutionException.class)
+	public void testExecute_targetFileDeletionFails() throws Exception {
+		final MergeMojo mojo = new MergeMojo();
+
+		final Merge mergeMock = createMock(Merge.class);
+		final Merge[] merges = new Merge[] { mergeMock };
+
+		final File targetFileMock = createMock(File.class);
+
+		final File file1Mock = createMock(File.class);
+		final File file2Mock = createMock(File.class);
+		final File[] files = new File[] { file1Mock, file2Mock };
+
+		final Field mergesField = MergeMojo.class
+				.getDeclaredField("merges");
+		mergesField.setAccessible(true);
+		mergesField.set(mojo, merges);
+
+		final FileInputStream file1InputStreamMock = createMock(FileInputStream.class);
+		final FileInputStream file2InputStreamMock = createMock(FileInputStream.class);
+
+		final Properties propertiesMock = createMock(Properties.class);
+
+		expectNew(Properties.class).andReturn(propertiesMock);
+		expect(mergeMock.getFiles()).andReturn(files);
+		expect(file2Mock.isDirectory()).andReturn(false);
+		expect(file2Mock.exists()).andReturn(true);
+		expectNew(FileInputStream.class, file2Mock).andReturn(
+				file2InputStreamMock);
+		propertiesMock.load(file2InputStreamMock);
+		file2InputStreamMock.close();
+
+		expect(file1Mock.isDirectory()).andReturn(false);
+		expect(file1Mock.exists()).andReturn(true);
+		expectNew(FileInputStream.class, file1Mock).andReturn(
+				file1InputStreamMock);
+		propertiesMock.load(file1InputStreamMock);
+		file1InputStreamMock.close();
+		expect(mergeMock.getTargetFile()).andReturn(targetFileMock);
+		expect(targetFileMock.isDirectory()).andReturn(false);
+		expect(targetFileMock.exists()).andReturn(true);
+		expect(targetFileMock.delete()).andReturn(false);
+		expect(targetFileMock.getAbsolutePath()).andReturn("/test.properties");
+
+		replay(mergeMock, file2Mock, file2InputStreamMock, file1Mock,
+				file1InputStreamMock, propertiesMock, targetFileMock,
+				FileInputStream.class, Properties.class);
+		mojo.execute();
+		verify(mergeMock, file2Mock, file1Mock, file1InputStreamMock,
+				file2InputStreamMock, propertiesMock, targetFileMock,
+				FileInputStream.class, Properties.class);
+	}
+
+	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetDirectoriesCanNotCreate() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -230,7 +283,69 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
+				.getDeclaredField("merges");
+		mergesField.setAccessible(true);
+		mergesField.set(mojo, merges);
+
+		final FileInputStream file1InputStreamMock = createMock(FileInputStream.class);
+		final FileInputStream file2InputStreamMock = createMock(FileInputStream.class);
+
+		final Properties propertiesMock = createMock(Properties.class);
+
+		expectNew(Properties.class).andReturn(propertiesMock);
+		expect(mergeMock.getFiles()).andReturn(files);
+		expect(file2Mock.isDirectory()).andReturn(false);
+		expect(file2Mock.exists()).andReturn(true);
+		expectNew(FileInputStream.class, file2Mock).andReturn(
+				file2InputStreamMock);
+		propertiesMock.load(file2InputStreamMock);
+		file2InputStreamMock.close();
+
+		expect(file1Mock.isDirectory()).andReturn(false);
+		expect(file1Mock.exists()).andReturn(true);
+		expectNew(FileInputStream.class, file1Mock).andReturn(
+				file1InputStreamMock);
+		propertiesMock.load(file1InputStreamMock);
+		file1InputStreamMock.close();
+		expect(mergeMock.getTargetFile()).andReturn(targetFileMock);
+		expect(targetFileMock.isDirectory()).andReturn(false);
+		expect(targetFileMock.exists()).andReturn(true);
+		expect(targetFileMock.delete()).andReturn(true);
+		expect(targetFileMock.getParentFile()).andReturn(
+				targetFileParentFileMock);
+		expect(targetFileParentFileMock.exists()).andReturn(false);
+		expect(targetFileParentFileMock.mkdirs()).andReturn(false);
+		expect(targetFileParentFileMock.getAbsolutePath()).andReturn(
+				"/test.properties");
+
+		replay(mergeMock, file2Mock, file2InputStreamMock, file1Mock,
+				file1InputStreamMock, propertiesMock, targetFileMock,
+				targetFileParentFileMock, FileInputStream.class,
+				Properties.class);
+		mojo.execute();
+		verify(mergeMock, file2Mock, file1Mock, file1InputStreamMock,
+				file2InputStreamMock, propertiesMock, targetFileMock,
+				targetFileParentFileMock, FileInputStream.class,
+				Properties.class);
+	}
+
+	@Test(expected = MojoExecutionException.class)
+	public void testExecute_targetDirectoryIsNotADirectory() throws Exception {
+		final MergeMojo mojo = new MergeMojo();
+
+		final Merge mergeMock = createMock(Merge.class);
+		final Merge[] merges = new Merge[] { mergeMock };
+
+		final File targetFileParentFileMock = createMock(File.class);
+
+		final File targetFileMock = createMock(File.class);
+
+		final File file1Mock = createMock(File.class);
+		final File file2Mock = createMock(File.class);
+		final File[] files = new File[] { file1Mock, file2Mock };
+
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -260,9 +375,9 @@ public class MergePropertiesMojoTest {
 		expect(targetFileMock.exists()).andReturn(false);
 		expect(targetFileMock.getParentFile()).andReturn(
 				targetFileParentFileMock);
-		expect(targetFileParentFileMock.mkdirs()).andReturn(false);
-		expect(targetFileMock.getParentFile()).andReturn(
-				targetFileParentFileMock);
+		expect(targetFileParentFileMock.exists()).andReturn(false);
+		expect(targetFileParentFileMock.mkdirs()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(false);
 		expect(targetFileParentFileMock.getAbsolutePath()).andReturn(
 				"/test.properties");
 
@@ -279,7 +394,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetFileCanNotCreate() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -292,7 +407,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -322,7 +437,8 @@ public class MergePropertiesMojoTest {
 		expect(targetFileMock.exists()).andReturn(false);
 		expect(targetFileMock.getParentFile()).andReturn(
 				targetFileParentFileMock);
-		expect(targetFileParentFileMock.mkdirs()).andReturn(true);
+		expect(targetFileParentFileMock.exists()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(true);
 		expect(targetFileMock.createNewFile()).andReturn(false);
 		expect(targetFileMock.getAbsolutePath()).andReturn("/test.properties");
 
@@ -339,7 +455,7 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetFileCreateCanNotWrite() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
@@ -352,7 +468,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -382,7 +498,8 @@ public class MergePropertiesMojoTest {
 		expect(targetFileMock.exists()).andReturn(false);
 		expect(targetFileMock.getParentFile()).andReturn(
 				targetFileParentFileMock);
-		expect(targetFileParentFileMock.mkdirs()).andReturn(true);
+		expect(targetFileParentFileMock.exists()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(true);
 		expect(targetFileMock.createNewFile()).andThrow(new IOException());
 		expect(targetFileMock.getAbsolutePath()).andReturn("/test.properties");
 
@@ -399,10 +516,12 @@ public class MergePropertiesMojoTest {
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetFileNotFound() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
+
+		final File targetFileParentFileMock = createMock(File.class);
 
 		final File targetFileMock = createMock(File.class);
 
@@ -410,7 +529,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -437,26 +556,35 @@ public class MergePropertiesMojoTest {
 		file1InputStreamMock.close();
 		expect(mergeMock.getTargetFile()).andReturn(targetFileMock);
 		expect(targetFileMock.isDirectory()).andReturn(false);
-		expect(targetFileMock.exists()).andReturn(true);
+		expect(targetFileMock.exists()).andReturn(false);
+		expect(targetFileMock.getParentFile()).andReturn(
+				targetFileParentFileMock);
+		expect(targetFileParentFileMock.exists()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(true);
+		expect(targetFileMock.createNewFile()).andReturn(true);
 		expectNew(FileOutputStream.class, targetFileMock).andThrow(
 				new FileNotFoundException());
 		expect(targetFileMock.getAbsolutePath()).andReturn("/test.properties");
 
 		replay(mergeMock, file2Mock, file2InputStreamMock, file1Mock,
 				file1InputStreamMock, propertiesMock, targetFileMock,
-				FileInputStream.class, Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, FileInputStream.class,
+				Properties.class, FileOutputStream.class);
 		mojo.execute();
 		verify(mergeMock, file2Mock, file1Mock, file1InputStreamMock,
 				file2InputStreamMock, propertiesMock, targetFileMock,
-				FileInputStream.class, Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, FileInputStream.class,
+				Properties.class, FileOutputStream.class);
 	}
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetFileCanNotWrite() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
+
+		final File targetFileParentFileMock = createMock(File.class);
 
 		final File targetFileMock = createMock(File.class);
 
@@ -464,7 +592,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -491,26 +619,35 @@ public class MergePropertiesMojoTest {
 		file1InputStreamMock.close();
 		expect(mergeMock.getTargetFile()).andReturn(targetFileMock);
 		expect(targetFileMock.isDirectory()).andReturn(false);
-		expect(targetFileMock.exists()).andReturn(true);
+		expect(targetFileMock.exists()).andReturn(false);
+		expect(targetFileMock.getParentFile()).andReturn(
+				targetFileParentFileMock);
+		expect(targetFileParentFileMock.exists()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(true);
+		expect(targetFileMock.createNewFile()).andReturn(true);
 		expectNew(FileOutputStream.class, targetFileMock).andThrow(
 				new IOException());
 		expect(targetFileMock.getAbsolutePath()).andReturn("/test.properties");
 
 		replay(mergeMock, file2Mock, file2InputStreamMock, file1Mock,
 				file1InputStreamMock, propertiesMock, targetFileMock,
-				FileInputStream.class, Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, FileInputStream.class,
+				Properties.class, FileOutputStream.class);
 		mojo.execute();
 		verify(mergeMock, file2Mock, file1Mock, file1InputStreamMock,
 				file2InputStreamMock, propertiesMock, targetFileMock,
-				FileInputStream.class, Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, FileInputStream.class,
+				Properties.class, FileOutputStream.class);
 	}
 
 	@Test(expected = MojoExecutionException.class)
 	public void testExecute_targetFileCanNotWriteOnStore() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
+
+		final File targetFileParentFileMock = createMock(File.class);
 
 		final File targetFileMock = createMock(File.class);
 
@@ -518,7 +655,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -547,7 +684,12 @@ public class MergePropertiesMojoTest {
 		file1InputStreamMock.close();
 		expect(mergeMock.getTargetFile()).andReturn(targetFileMock);
 		expect(targetFileMock.isDirectory()).andReturn(false);
-		expect(targetFileMock.exists()).andReturn(true);
+		expect(targetFileMock.exists()).andReturn(false);
+		expect(targetFileMock.getParentFile()).andReturn(
+				targetFileParentFileMock);
+		expect(targetFileParentFileMock.exists()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(true);
+		expect(targetFileMock.createNewFile()).andReturn(true);
 		expectNew(FileOutputStream.class, targetFileMock).andReturn(
 				targetFileOutputStreamMock);
 		expect(targetFileMock.getName()).andReturn("test.properties");
@@ -558,21 +700,23 @@ public class MergePropertiesMojoTest {
 
 		replay(mergeMock, file2Mock, file2InputStreamMock, file1Mock,
 				file1InputStreamMock, propertiesMock, targetFileMock,
-				targetFileOutputStreamMock, FileInputStream.class,
-				Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, targetFileOutputStreamMock,
+				FileInputStream.class, Properties.class, FileOutputStream.class);
 		mojo.execute();
 		verify(mergeMock, file2Mock, file1Mock, file1InputStreamMock,
 				file2InputStreamMock, propertiesMock, targetFileMock,
-				targetFileOutputStreamMock, FileInputStream.class,
-				Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, targetFileOutputStreamMock,
+				FileInputStream.class, Properties.class, FileOutputStream.class);
 	}
 
 	@Test
 	public void testExecute() throws Exception {
-		final MergePropertiesMojo mojo = new MergePropertiesMojo();
+		final MergeMojo mojo = new MergeMojo();
 
 		final Merge mergeMock = createMock(Merge.class);
 		final Merge[] merges = new Merge[] { mergeMock };
+
+		final File targetFileParentFileMock = createMock(File.class);
 
 		final File targetFileMock = createMock(File.class);
 
@@ -580,7 +724,7 @@ public class MergePropertiesMojoTest {
 		final File file2Mock = createMock(File.class);
 		final File[] files = new File[] { file1Mock, file2Mock };
 
-		final Field mergesField = MergePropertiesMojo.class
+		final Field mergesField = MergeMojo.class
 				.getDeclaredField("merges");
 		mergesField.setAccessible(true);
 		mergesField.set(mojo, merges);
@@ -609,7 +753,12 @@ public class MergePropertiesMojoTest {
 		file1InputStreamMock.close();
 		expect(mergeMock.getTargetFile()).andReturn(targetFileMock);
 		expect(targetFileMock.isDirectory()).andReturn(false);
-		expect(targetFileMock.exists()).andReturn(true);
+		expect(targetFileMock.exists()).andReturn(false);
+		expect(targetFileMock.getParentFile()).andReturn(
+				targetFileParentFileMock);
+		expect(targetFileParentFileMock.exists()).andReturn(true);
+		expect(targetFileParentFileMock.isDirectory()).andReturn(true);
+		expect(targetFileMock.createNewFile()).andReturn(true);
 		expectNew(FileOutputStream.class, targetFileMock).andReturn(
 				targetFileOutputStreamMock);
 		expect(targetFileMock.getName()).andReturn("test.properties");
@@ -618,12 +767,12 @@ public class MergePropertiesMojoTest {
 
 		replay(mergeMock, file2Mock, file2InputStreamMock, file1Mock,
 				file1InputStreamMock, propertiesMock, targetFileMock,
-				targetFileOutputStreamMock, FileInputStream.class,
-				Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, targetFileOutputStreamMock,
+				FileInputStream.class, Properties.class, FileOutputStream.class);
 		mojo.execute();
 		verify(mergeMock, file2Mock, file1Mock, file1InputStreamMock,
 				file2InputStreamMock, propertiesMock, targetFileMock,
-				targetFileOutputStreamMock, FileInputStream.class,
-				Properties.class, FileOutputStream.class);
+				targetFileParentFileMock, targetFileOutputStreamMock,
+				FileInputStream.class, Properties.class, FileOutputStream.class);
 	}
 }

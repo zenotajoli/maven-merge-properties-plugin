@@ -9,12 +9,18 @@
 
 	<name>Maven Merge Properties Plugin</name>
 	<description>Merges multiple properties files into one.</description>
-	<inceptionYear>2009</inceptionYear>
 	<url>http://code.google.com/p/beardedgeeks</url>
-
-	<prerequisites>
-		<maven>2.0.1</maven>
-	</prerequisites>
+	<inceptionYear>2009</inceptionYear>
+	<organization>
+		<name>Bearded Geeks</name>
+		<url>http://beardedgeeks.org</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
 	<developers>
 		<developer>
@@ -31,50 +37,47 @@
 		</developer>
 	</developers>
 
-	<organization>
-		<name>Bearded Geeks</name>
-		<url>http://beardedgeeks.org</url>
-	</organization>
-
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-		</license>
-	</licenses>
-
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/beardedgeeks/issues/list</url>
+	</issueManagement>
 	<scm>
 		<connection>scm:svn:http://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin/tags/maven-merge-properties-plugin-0.2</connection>
 		<developerConnection>scm:svn:https://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin/tags/maven-merge-properties-plugin-0.2</developerConnection>
 		<url>http://code.google.com/p/beardedgeeks/source/browse/#svn/maven-merge-properties-plugin/tags/maven-merge-properties-plugin-0.2</url>
 	</scm>
 
-	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/beardedgeeks/issues/list</url>
-	</issueManagement>
-
-	<distributionManagement>
-		<repository>
-			<id>beardedgeeks-googlecode</id>
-			<url>svn:https://beardedgeeks.googlecode.com/svn/repository/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>beardedgeeks-googlecode</id>
-			<uniqueVersion>false</uniqueVersion>
-			<url>svn:https://beardedgeeks.googlecode.com/svn/repository/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+	<prerequisites>
+		<maven>2.0.9</maven>
+	</prerequisites>
 
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>2.0.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-8</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -102,20 +105,24 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>2.0.1</version>
-			</plugin>
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>beardedgeeks-googlecode</id>
+			<url>svn:https://beardedgeeks.googlecode.com/svn/repository/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>beardedgeeks-googlecode</id>
+			<uniqueVersion>false</uniqueVersion>
+			<url>svn:https://beardedgeeks.googlecode.com/svn/repository/snapshots</url>
+		</snapshotRepository>
+		<site>
+			<id>beardedgeeks-googlecode</id>
+			<url>svn:https://beardedgeeks.googlecode.com/svn/docs/maven-merge-properties-plugin/${project.version}</url>
+		</site>
+	</distributionManagement>
 
 	<repositories>
 		<repository>
@@ -153,21 +160,21 @@
 		<dependency>
 			<groupId>org.powermock.modules</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>1.2.5</version>
+			<version>${powermock.version}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock.api</groupId>
 			<artifactId>powermock-api-easymock</artifactId>
-			<version>1.2.5</version>
+			<version>${powermock.version}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0.6</version>
+			<version>${prerequisites.maven}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -210,4 +217,8 @@
 		</plugins>
 	</reporting>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<powermock.version>1.2.5</powermock.version>
+	</properties>
 </project>
