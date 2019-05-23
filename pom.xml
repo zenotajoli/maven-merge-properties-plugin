@@ -9,11 +9,10 @@
 
 	<name>Maven Merge Properties Plugin</name>
 	<description>Merges multiple properties files into one.</description>
-	<url>http://code.google.com/p/beardedgeeks</url>
+	<url>https://github.com/javanto/maven-merge-properties-plugin</url>
 	<inceptionYear>2009</inceptionYear>
 	<organization>
 		<name>Bearded Geeks</name>
-		<url>http://beardedgeeks.org</url>
 	</organization>
 	<licenses>
 		<license>
@@ -27,9 +26,8 @@
 			<id>hleinone</id>
 			<name>Hannu Leinonen</name>
 			<email>hleinone@gmail.com</email>
-			<url>http://hamandeggs.wordpress.com</url>
+			<url>http://javanto.com/</url>
 			<organization>Bearded Geeks</organization>
-			<organizationUrl>http://beardedgeeks.org</organizationUrl>
 			<roles>
 				<role>owner</role>
 			</roles>
@@ -38,13 +36,13 @@
 	</developers>
 
 	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/beardedgeeks/issues/list</url>
+		<system>GitHub Issues</system>
+		<url>https://github.com/zenotajoli/maven-merge-properties-plugin/issues</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin</connection>
-		<developerConnection>scm:svn:https://beardedgeeks.googlecode.com/svn/maven-merge-properties-plugin</developerConnection>
-		<url>http://code.google.com/p/beardedgeeks/source/browse/#svn/maven-merge-properties-plugin</url>
+		<connection>scm:git:git://github.com/zenotajoli/maven-merge-properties-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:zenotajoli/maven-merge-properties-plugin.git</developerConnection>
+		<url>https://github.com/zenotajoli/maven-merge-properties-plugin</url>
 	</scm>
 
 	<prerequisites>
@@ -60,6 +58,42 @@
 			</extension>
 		</extensions>
 		<plugins>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>downloads-maven-plugin</artifactId>
+				<version>0.6</version>
+				<configuration>
+					<description>Official ${project.name} build of the ${project.version} release</description>
+					<override>true</override>
+					<includeAttached>true</includeAttached>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						<phase>install</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.7</version>
+				<configuration>
+					<message>Building site for ${project.version}</message>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>site</phase>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -108,21 +142,6 @@
 		</plugins>
 	</build>
 
-	<distributionManagement>
-		<repository>
-			<id>beardedgeeks-googlecode</id>
-			<url>svn:https://beardedgeeks.googlecode.com/svn/repository/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>beardedgeeks-googlecode</id>
-			<uniqueVersion>false</uniqueVersion>
-			<url>svn:https://beardedgeeks.googlecode.com/svn/repository/snapshots</url>
-		</snapshotRepository>
-		<site>
-			<id>beardedgeeks-googlecode</id>
-			<url>svn:https://beardedgeeks.googlecode.com/svn/docs/maven-merge-properties-plugin/${project.version}</url>
-		</site>
-	</distributionManagement>
 
 	<repositories>
 		<repository>
